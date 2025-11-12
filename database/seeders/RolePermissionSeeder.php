@@ -64,7 +64,30 @@ class RolePermissionSeeder extends Seeder
         $superAdminRole = Role::firstOrCreate(['name' => 'super_admin']);
         $superAdminRole->givePermissionTo(Permission::all());
 
-        $this->command->info('Super Admin role created with all permissions.');
+        // Create Admin role with most permissions
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $adminRole->givePermissionTo([
+            'view users',
+            'create users',
+            'edit users',
+            'view roles',
+            'view permissions',
+            'access admin dashboard',
+            'edit profile',
+            'view profile',
+            'view audit logs',
+            'view reports',
+        ]);
+
+        // Create User role with basic permissions
+        $userRole = Role::firstOrCreate(['name' => 'user']);
+        $userRole->givePermissionTo([
+            'access user dashboard',
+            'edit profile',
+            'view profile',
+        ]);
+
+        $this->command->info('Roles created: Super Admin, Admin, User');
         $this->command->info('Total permissions created: ' . count($permissions));
     }
 }

@@ -27,6 +27,23 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [LoginController::class, 'register'])
          ->middleware('log.sensitive')
          ->name('register.submit');
+    
+    // Forgot Password Routes with OTP
+    Route::get('/forgot-password', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])
+         ->name('password.request');
+    
+    Route::post('/forgot-password/send-otp', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendOTP'])
+         ->name('password.sendOTP');
+    
+    Route::post('/forgot-password/verify-otp', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'verifyOTP'])
+         ->name('password.verifyOTP');
+    
+    // Reset Password Routes (after OTP verification)
+    Route::get('/reset-password/{token}', [\App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetForm'])
+         ->name('password.reset');
+    
+    Route::post('/reset-password', [\App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])
+         ->name('password.update');
 });
 
 // Logout (method POST demi keamanan; pakai @csrf di form logout)
