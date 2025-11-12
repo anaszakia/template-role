@@ -3,237 +3,144 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<div x-data="dashboardData()" class="space-y-8">
-    <!-- Welcome Section with Enhanced Design -->
-    <div class="mb-8">
-        <div class="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 rounded-2xl p-8 text-white shadow-2xl">
-            <!-- Background Pattern -->
-            <div class="absolute inset-0 opacity-10">
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-white rounded-full"></div>
-                <div class="absolute top-20 -right-5 w-20 h-20 bg-white rounded-full"></div>
-                <div class="absolute -bottom-5 -left-5 w-32 h-32 bg-white rounded-full"></div>
+<div x-data="dashboardData()" class="space-y-6">
+    <!-- Simple Welcome Header -->
+    <div class="bg-white rounded-xl p-6 border border-gray-200">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Dashboard Admin</h1>
+                <p class="text-gray-600 text-sm mt-1">Selamat datang, {{ auth()->user()->name }}</p>
             </div>
-            
-            <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between">
-                <div class="mb-4 md:mb-0">
-                    <h1 class="text-3xl md:text-4xl font-bold mb-2 animate-fade-in">
-                        Selamat Datang, {{ auth()->user()->name }}! 👋
-                    </h1>
-                    <p class="text-blue-100 text-lg animate-fade-in-delay">
-                        Kelola sistem dengan mudah melalui dashboard yang powerful
-                    </p>
-                    <div class="mt-4 flex items-center text-blue-200">
-                        <i class="fas fa-calendar-alt mr-2"></i>
-                        <span>{{ now()->format('l, d F Y') }}</span>
-                        <i class="fas fa-clock ml-4 mr-2"></i>
-                        <span x-text="currentTime"></span>
-                    </div>
-                </div>
-                <div class="hidden md:block">
-                    <div class="w-24 h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                        <i class="fas fa-chart-line text-4xl text-white"></i>
-                    </div>
-                </div>
+            <div class="text-right text-sm text-gray-600">
+                <div>{{ now()->format('d F Y') }}</div>
+                <div x-text="currentTime" class="font-medium text-gray-900"></div>
             </div>
         </div>
     </div>
 
-    <!-- Enhanced Stats Overview with Animations -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Simple Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Total Users -->
-        <div class="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-blue-200">
-            <div class="flex items-center justify-between">
-                <div class="flex-1">
-                    <div class="flex items-center mb-2">
-                        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Total Users</p>
-                        <div class="ml-2 w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    </div>
-                    <p class="text-3xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors" x-data="{ count: 0 }" x-init="$nextTick(() => { let target = {{ $totalUsers }}; let increment = target / 50; let timer = setInterval(() => { count += increment; if (count >= target) { count = target; clearInterval(timer); } }, 20); });" x-text="Math.floor(count).toLocaleString()">{{ number_format($totalUsers) }}</p>
-                    <div class="flex items-center">
-                        <div class="flex items-center bg-green-100 rounded-full px-2 py-1">
-                            <i class="fas fa-arrow-up text-green-600 text-xs mr-1"></i>
-                            <span class="text-sm text-green-600 font-semibold">+{{ $todayRegistrations }}</span>
-                        </div>
-                        <span class="text-sm text-gray-500 ml-2">hari ini</span>
-                    </div>
+        <div class="bg-white p-5 rounded-lg border border-gray-200">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-users text-white text-sm"></i>
                 </div>
-                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <i class="fas fa-users text-white text-xl"></i>
-                </div>
+                <span class="text-xs text-gray-500">+{{ $todayRegistrations }} hari ini</span>
             </div>
+            <div class="text-2xl font-bold text-gray-900">{{ number_format($totalUsers) }}</div>
+            <div class="text-xs text-gray-600 mt-1">Total Users</div>
         </div>
 
         <!-- Total Admins -->
-        <div class="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-green-200">
-            <div class="flex items-center justify-between">
-                <div class="flex-1">
-                    <div class="flex items-center mb-2">
-                        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Total Admin</p>
-                        <div class="ml-2 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                    </div>
-                    <p class="text-3xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors" x-data="{ count: 0 }" x-init="$nextTick(() => { let target = {{ $totalAdmins }}; let increment = target / 30; let timer = setInterval(() => { count += increment; if (count >= target) { count = target; clearInterval(timer); } }, 30); });" x-text="Math.floor(count).toLocaleString()">{{ number_format($totalAdmins) }}</p>
-                    <div class="flex items-center">
-                        <div class="flex items-center bg-blue-100 rounded-full px-2 py-1">
-                            <i class="fas fa-users text-blue-600 text-xs mr-1"></i>
-                            <span class="text-sm text-blue-600 font-semibold">{{ number_format($totalRegularUsers) }}</span>
-                        </div>
-                        <span class="text-sm text-gray-500 ml-2">regular users</span>
-                    </div>
+        <div class="bg-white p-5 rounded-lg border border-gray-200">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-user-shield text-white text-sm"></i>
                 </div>
-                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <i class="fas fa-user-shield text-white text-xl"></i>
-                </div>
+                <span class="text-xs text-gray-500">{{ number_format($totalRegularUsers) }} users</span>
             </div>
+            <div class="text-2xl font-bold text-gray-900">{{ number_format($totalAdmins) }}</div>
+            <div class="text-xs text-gray-600 mt-1">Total Admin</div>
         </div>
 
         <!-- Today Logins -->
-        <div class="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-purple-200">
-            <div class="flex items-center justify-between">
-                <div class="flex-1">
-                    <div class="flex items-center mb-2">
-                        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Login Hari Ini</p>
-                        <div class="ml-2 w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
-                    </div>
-                    <p class="text-3xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors" x-data="{ count: 0 }" x-init="$nextTick(() => { let target = {{ $todayLogins }}; let increment = target / 25; let timer = setInterval(() => { count += increment; if (count >= target) { count = target; clearInterval(timer); } }, 40); });" x-text="Math.floor(count).toLocaleString()">{{ number_format($todayLogins) }}</p>
-                    <div class="flex items-center">
-                        <div class="flex items-center bg-purple-100 rounded-full px-2 py-1">
-                            <i class="fas fa-chart-line text-purple-600 text-xs mr-1"></i>
-                            <span class="text-sm text-purple-600 font-semibold">{{ $thisWeekRegistrations }}</span>
-                        </div>
-                        <span class="text-sm text-gray-500 ml-2">minggu ini</span>
-                    </div>
+        <div class="bg-white p-5 rounded-lg border border-gray-200">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-sign-in-alt text-white text-sm"></i>
                 </div>
-                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <i class="fas fa-sign-in-alt text-white text-xl"></i>
-                </div>
+                <span class="text-xs text-gray-500">{{ $thisWeekRegistrations }} minggu ini</span>
             </div>
+            <div class="text-2xl font-bold text-gray-900">{{ number_format($todayLogins) }}</div>
+            <div class="text-xs text-gray-600 mt-1">Login Hari Ini</div>
         </div>
 
         <!-- Audit Logs -->
-        <div class="group bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 hover:border-orange-200">
-            <div class="flex items-center justify-between">
-                <div class="flex-1">
-                    <div class="flex items-center mb-2">
-                        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Total Audit Log</p>
-                        <div class="ml-2 w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-                    </div>
-                    <p class="text-3xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors" x-data="{ count: 0 }" x-init="$nextTick(() => { let target = {{ $totalAuditLogs }}; let increment = target / 40; let timer = setInterval(() => { count += increment; if (count >= target) { count = target; clearInterval(timer); } }, 25); });" x-text="Math.floor(count).toLocaleString()">{{ number_format($totalAuditLogs) }}</p>
-                    <div class="flex items-center">
-                        <div class="flex items-center bg-orange-100 rounded-full px-2 py-1">
-                            <i class="fas fa-calendar text-orange-600 text-xs mr-1"></i>
-                            <span class="text-sm text-orange-600 font-semibold">{{ $thisMonthRegistrations }}</span>
-                        </div>
-                        <span class="text-sm text-gray-500 ml-2">bulan ini</span>
-                    </div>
+        <div class="bg-white p-5 rounded-lg border border-gray-200">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-clipboard-list text-white text-sm"></i>
                 </div>
-                <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <i class="fas fa-clipboard-list text-white text-xl"></i>
-                </div>
+                <span class="text-xs text-gray-500">{{ $thisMonthRegistrations }} bulan ini</span>
             </div>
+            <div class="text-2xl font-bold text-gray-900">{{ number_format($totalAuditLogs) }}</div>
+            <div class="text-xs text-gray-600 mt-1">Total Audit Log</div>
         </div>
     </div>
 
-    <!-- Enhanced Charts Section -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+    <!-- Simple Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- User Growth Chart -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-            <div class="flex items-center justify-between mb-6">
+        <div class="bg-white p-6 rounded-lg border border-gray-200">
+            <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h3 class="text-xl font-bold text-gray-900 flex items-center">
-                        <i class="fas fa-chart-line text-blue-600 mr-3"></i>
-                        Pertumbuhan User
-                    </h3>
-                    <p class="text-sm text-gray-500 mt-1">Tren registrasi pengguna baru</p>
+                    <h3 class="text-base font-semibold text-gray-900">Pertumbuhan User</h3>
+                    <p class="text-xs text-gray-500 mt-1">7 Bulan Terakhir</p>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-xs font-semibold">7 Bulan Terakhir</span>
-                    <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors" title="Refresh Chart">
-                        <i class="fas fa-sync-alt text-gray-400 hover:text-gray-600"></i>
-                    </button>
-                </div>
+                <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                    <i class="fas fa-sync-alt text-gray-400 text-xs"></i>
+                </button>
             </div>
-            <div class="relative h-72 bg-gradient-to-br from-blue-50 to-transparent rounded-xl p-4">
+            <div class="h-64">
                 <canvas id="userGrowthChart"></canvas>
             </div>
         </div>
 
         <!-- Login Statistics -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-            <div class="flex items-center justify-between mb-6">
+        <div class="bg-white p-6 rounded-lg border border-gray-200">
+            <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h3 class="text-xl font-bold text-gray-900 flex items-center">
-                        <i class="fas fa-chart-bar text-purple-600 mr-3"></i>
-                        Statistik Login
-                    </h3>
-                    <p class="text-sm text-gray-500 mt-1">Aktivitas login harian pengguna</p>
+                    <h3 class="text-base font-semibold text-gray-900">Statistik Login</h3>
+                    <p class="text-xs text-gray-500 mt-1">7 Hari Terakhir</p>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-xs font-semibold">7 Hari Terakhir</span>
-                    <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors" title="Refresh Chart">
-                        <i class="fas fa-sync-alt text-gray-400 hover:text-gray-600"></i>
-                    </button>
-                </div>
+                <button class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                    <i class="fas fa-sync-alt text-gray-400 text-xs"></i>
+                </button>
             </div>
-            <div class="relative h-72 bg-gradient-to-br from-purple-50 to-transparent rounded-xl p-4">
+            <div class="h-64">
                 <canvas id="loginStatsChart"></canvas>
             </div>
         </div>
     </div>
-    <!-- Enhanced Data Tables Section -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Simple Data Tables -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Recent Users -->
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
-            <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-transparent">
+        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
                 <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 flex items-center">
-                            <i class="fas fa-user-plus text-blue-600 mr-3"></i>
-                            User Terbaru
-                        </h3>
-                        <p class="text-sm text-gray-500 mt-1">Pengguna yang baru bergabung</p>
-                    </div>
-                    <a href="{{ route('users.index') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg">
-                        <span>Lihat Semua</span>
-                        <i class="fas fa-arrow-right ml-2"></i>
+                    <h3 class="text-base font-semibold text-gray-900">User Terbaru</h3>
+                    <a href="{{ route('users.index') }}" class="text-xs text-gray-900 hover:underline">
+                        Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
             </div>
-            <div class="p-6">
-                <div class="space-y-3">
+            <div class="p-4">
+                <div class="space-y-2">
                     @forelse($recentUsers as $user)
-                    <div class="group flex items-center space-x-4 p-4 hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent rounded-xl transition-all duration-300 cursor-pointer border border-transparent hover:border-blue-100">
-                        <div class="relative">
-                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                                <span class="text-white font-bold text-lg">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
-                            </div>
-                            <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></div>
+                    <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
+                        <div class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <span class="text-white font-bold text-sm">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-semibold text-gray-900 truncate group-hover:text-blue-600 transition-colors">{{ $user->name }}</p>
-                            <p class="text-sm text-gray-500 truncate">{{ $user->email }}</p>
+                            <p class="text-sm font-medium text-gray-900 truncate">{{ $user->name }}</p>
+                            <p class="text-xs text-gray-500 truncate">{{ $user->email }}</p>
                         </div>
-                        <div class="text-right">
+                        <div class="text-right flex-shrink-0">
                             @php
                                 $userRoles = $user->roles;
-                                $roleClass = $userRoles->contains('name', 'super_admin') ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800';
-                                $roleName = $userRoles->first() ? ucwords(str_replace('_', ' ', $userRoles->first()->name)) : 'No Role';
+                                $roleName = $userRoles->first() ? ucwords(str_replace('_', ' ', $userRoles->first()->name)) : 'User';
                             @endphp
-                            <span class="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full {{ $roleClass }}">
-                                @if($userRoles->contains('name', 'super_admin'))
-                                    <i class="fas fa-crown mr-1"></i>
-                                @endif
-                                {{ $roleName }}
-                            </span>
+                            <span class="inline-block px-2 py-1 text-xs bg-gray-900 text-white rounded">{{ $roleName }}</span>
                             <p class="text-xs text-gray-500 mt-1">{{ $user->created_at->diffForHumans() }}</p>
                         </div>
                     </div>
                     @empty
-                    <div class="text-center py-12">
-                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-users text-gray-400 text-2xl"></i>
+                    <div class="text-center py-8">
+                        <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-users text-gray-400 text-xl"></i>
                         </div>
-                        <p class="text-gray-500 font-medium">Belum ada user terbaru</p>
-                        <p class="text-gray-400 text-sm mt-1">User baru akan muncul di sini</p>
+                        <p class="text-gray-600 font-medium text-sm">Belum ada user terbaru</p>
                     </div>
                     @endforelse
                 </div>
@@ -241,72 +148,36 @@
         </div>
 
         <!-- Recent Activity -->
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
-            <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-purple-50 to-transparent">
+        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
                 <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900 flex items-center">
-                            <i class="fas fa-history text-purple-600 mr-3"></i>
-                            Aktivitas Terbaru
-                        </h3>
-                        <p class="text-sm text-gray-500 mt-1">Log aktivitas sistem terkini</p>
-                    </div>
-                    <a href="{{ route('audit.index') }}" class="inline-flex items-center px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700 transition-colors shadow-md hover:shadow-lg">
-                        <span>Lihat Semua</span>
-                        <i class="fas fa-arrow-right ml-2"></i>
+                    <h3 class="text-base font-semibold text-gray-900">Aktivitas Terbaru</h3>
+                    <a href="{{ route('audit.index') }}" class="text-xs text-gray-900 hover:underline">
+                        Lihat Semua <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
             </div>
-            <div class="p-6">
-                <div class="space-y-3">
+            <div class="p-4">
+                <div class="space-y-2">
                     @forelse($recentActivity as $activity)
-                    <div class="group flex items-start space-x-4 p-4 hover:bg-gradient-to-r hover:from-purple-50 hover:to-transparent rounded-xl transition-all duration-300 border border-transparent hover:border-purple-100">
-                        <div class="flex-shrink-0">
-                            @php
-                                $iconClass = '';
-                                $bgClass = '';
-                                $textClass = '';
-                                
-                                switch($activity->action) {
-                                    case 'Login':
-                                        $iconClass = 'fas fa-sign-in-alt';
-                                        $bgClass = 'bg-green-100';
-                                        $textClass = 'text-green-600';
-                                        break;
-                                    case 'Logout':
-                                        $iconClass = 'fas fa-sign-out-alt';
-                                        $bgClass = 'bg-red-100';
-                                        $textClass = 'text-red-600';
-                                        break;
-                                    default:
-                                        $iconClass = 'fas fa-cog';
-                                        $bgClass = 'bg-blue-100';
-                                        $textClass = 'text-blue-600';
-                                }
-                            @endphp
-                            <div class="w-10 h-10 {{ $bgClass }} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                                <i class="{{ $iconClass }} {{ $textClass }}"></i>
-                            </div>
+                    <div class="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-all">
+                        <div class="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-circle text-white text-xs"></i>
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center justify-between">
-                                <p class="text-sm font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">
-                                    {{ $activity->user ? $activity->user->name : 'Unknown User' }}
-                                </p>
-                                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full font-medium">
-                                    {{ $activity->action }}
-                                </span>
+                                <p class="text-sm font-medium text-gray-900">{{ $activity->user ? $activity->user->name : 'Unknown' }}</p>
+                                <span class="px-2 py-1 bg-gray-900 text-white text-xs rounded">{{ $activity->action }}</span>
                             </div>
-                            <p class="text-sm text-gray-500 mt-1">{{ $activity->created_at->diffForHumans() }}</p>
+                            <p class="text-xs text-gray-500 mt-1">{{ $activity->created_at->diffForHumans() }}</p>
                         </div>
                     </div>
                     @empty
-                    <div class="text-center py-12">
-                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-history text-gray-400 text-2xl"></i>
+                    <div class="text-center py-8">
+                        <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-history text-gray-400 text-xl"></i>
                         </div>
-                        <p class="text-gray-500 font-medium">Belum ada aktivitas</p>
-                        <p class="text-gray-400 text-sm mt-1">Aktivitas akan muncul di sini</p>
+                        <p class="text-gray-600 font-medium text-sm">Belum ada aktivitas</p>
                     </div>
                     @endforelse
                 </div>
@@ -320,57 +191,9 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-@keyframes fade-in {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fade-in-delay {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in {
-    animation: fade-in 0.8s ease-out;
-}
-
-.animate-fade-in-delay {
-    animation: fade-in-delay 0.8s ease-out 0.3s both;
-}
-
-.group:hover .group-hover\:scale-110 {
-    transform: scale(1.1);
-}
-
-.group:hover .group-hover\:text-blue-600 {
-    color: #2563eb;
-}
-
-.group:hover .group-hover\:text-green-600 {
-    color: #059669;
-}
-
-.group:hover .group-hover\:text-purple-600 {
-    color: #7c3aed;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+/* Simple transitions */
+.transition-all {
+    transition: all 0.2s ease;
 }
 </style>
 
@@ -389,7 +212,7 @@ function dashboardData() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // User Growth Chart
+    // User Growth Chart - Simple Style
     const userGrowthCtx = document.getElementById('userGrowthChart');
     if (userGrowthCtx) {
         new Chart(userGrowthCtx, {
@@ -399,19 +222,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 datasets: [{
                     label: 'User Baru',
                     data: @json($userGrowthData['userCounts']),
-                    borderColor: 'rgb(59, 130, 246)',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    borderWidth: 3,
+                    borderColor: '#111827',
+                    backgroundColor: 'rgba(17, 24, 39, 0.05)',
+                    borderWidth: 2,
                     tension: 0.4,
                     fill: true,
-                    pointBackgroundColor: 'rgb(59, 130, 246)',
+                    pointBackgroundColor: '#111827',
                     pointBorderColor: '#fff',
-                    pointBorderWidth: 3,
-                    pointRadius: 6,
-                    pointHoverRadius: 8,
-                    pointHoverBackgroundColor: 'rgb(59, 130, 246)',
-                    pointHoverBorderColor: '#fff',
-                    pointHoverBorderWidth: 3
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
                 }]
             },
             options: {
@@ -419,80 +239,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: true,
-                        position: 'top',
-                        labels: {
-                            usePointStyle: true,
-                            padding: 20,
-                            font: {
-                                size: 14,
-                                weight: 'bold'
-                            }
-                        }
+                        display: false
                     },
                     tooltip: {
-                        mode: 'index',
-                        intersect: false,
-                        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                        backgroundColor: '#111827',
                         titleColor: 'white',
                         bodyColor: 'white',
-                        borderColor: 'rgba(59, 130, 246, 1)',
-                        borderWidth: 2,
-                        cornerRadius: 10,
+                        borderWidth: 0,
+                        cornerRadius: 6,
                         displayColors: false,
-                        titleFont: {
-                            size: 14,
-                            weight: 'bold'
-                        },
-                        bodyFont: {
-                            size: 13
-                        }
+                        padding: 12
                     }
                 },
                 scales: {
                     x: {
-                        display: true,
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-                            font: {
-                                size: 12,
-                                weight: '500'
-                            }
-                        }
+                        grid: { display: false },
+                        ticks: { font: { size: 11 } }
                     },
                     y: {
-                        display: true,
                         beginAtZero: true,
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.05)',
-                            drawBorder: false
-                        },
-                        ticks: {
+                        grid: { color: '#f3f4f6' },
+                        ticks: { 
                             precision: 0,
-                            font: {
-                                size: 12,
-                                weight: '500'
-                            }
+                            font: { size: 11 }
                         }
-                    }
-                },
-                interaction: {
-                    mode: 'nearest',
-                    axis: 'x',
-                    intersect: false
-                },
-                elements: {
-                    point: {
-                        hoverRadius: 8
                     }
                 }
             }
         });
     }
 
-    // Login Statistics Chart
+    // Login Statistics Chart - Simple Style
     const loginStatsCtx = document.getElementById('loginStatsChart');
     if (loginStatsCtx) {
         new Chart(loginStatsCtx, {
@@ -502,14 +279,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 datasets: [{
                     label: 'Login',
                     data: @json($loginStats['loginCounts']),
-                    backgroundColor: 'rgba(168, 85, 247, 0.8)',
-                    borderColor: 'rgba(168, 85, 247, 1)',
-                    borderWidth: 2,
-                    borderRadius: 8,
-                    borderSkipped: false,
-                    hoverBackgroundColor: 'rgba(168, 85, 247, 0.9)',
-                    hoverBorderColor: 'rgba(168, 85, 247, 1)',
-                    hoverBorderWidth: 3
+                    backgroundColor: '#111827',
+                    borderRadius: 6,
+                    borderSkipped: false
                 }]
             },
             options: {
@@ -517,70 +289,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: true,
-                        position: 'top',
-                        labels: {
-                            usePointStyle: true,
-                            padding: 20,
-                            font: {
-                                size: 14,
-                                weight: 'bold'
-                            }
-                        }
+                        display: false
                     },
                     tooltip: {
-                        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                        backgroundColor: '#111827',
                         titleColor: 'white',
                         bodyColor: 'white',
-                        borderColor: 'rgba(168, 85, 247, 1)',
-                        borderWidth: 2,
-                        cornerRadius: 10,
+                        borderWidth: 0,
+                        cornerRadius: 6,
                         displayColors: false,
-                        titleFont: {
-                            size: 14,
-                            weight: 'bold'
-                        },
-                        bodyFont: {
-                            size: 13
-                        }
+                        padding: 12
                     }
                 },
                 scales: {
                     x: {
-                        display: true,
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-                            font: {
-                                size: 12,
-                                weight: '500'
-                            }
-                        }
+                        grid: { display: false },
+                        ticks: { font: { size: 11 } }
                     },
                     y: {
-                        display: true,
                         beginAtZero: true,
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.05)',
-                            drawBorder: false
-                        },
-                        ticks: {
+                        grid: { color: '#f3f4f6' },
+                        ticks: { 
                             precision: 0,
-                            font: {
-                                size: 12,
-                                weight: '500'
-                            }
+                            font: { size: 11 }
                         }
                     }
-                },
-                animation: {
-                    duration: 2000,
-                    easing: 'easeInOutQuart'
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index'
                 }
             }
         });

@@ -45,16 +45,10 @@ class DashboardController extends Controller
         // Data untuk user dashboard
         $data = [
             'user' => $user,
-            'totalUsers' => User::count(),
-            'todayLogins' => AuditLog::where('action', 'Login')
-                ->whereDate('created_at', today())
-                ->count(),
-            'myLoginHistory' => AuditLog::where('user_id', $user->id)
+            'totalLogins' => AuditLog::where('user_id', $user->id)
                 ->where('action', 'Login')
-                ->latest()
-                ->take(5)
-                ->get(),
-            'recentActivity' => AuditLog::where('user_id', $user->id)
+                ->count(),
+            'recentActivities' => AuditLog::where('user_id', $user->id)
                 ->latest()
                 ->take(10)
                 ->get(),
@@ -65,7 +59,7 @@ class DashboardController extends Controller
                 ->first()?->created_at?->diffForHumans() ?? 'Belum pernah login',
         ];
         
-        return view('user.dashboard', $data);
+        return view('dashboard.user', $data);
     }
 
     public function adminDashboard()

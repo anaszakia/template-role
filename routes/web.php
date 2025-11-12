@@ -63,6 +63,19 @@ Route::middleware(['auth', 'log.sensitive'])->group(function () {
         ->middleware('permission:edit profile')
         ->name('profile.update');
     
+    // Additional profile routes
+    Route::get('/profile/security', function() {
+        return view('profile.security');
+    })->name('profile.security');
+    
+    Route::get('/profile/settings', function() {
+        return view('profile.settings');
+    })->name('profile.settings');
+    
+    Route::get('/help', function() {
+        return view('help.center');
+    })->name('help.center');
+    
     // Dashboard routes
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])
         ->name('dashboard');
