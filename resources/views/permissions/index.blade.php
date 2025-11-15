@@ -11,7 +11,7 @@
             <p class="text-gray-600 mt-1">Kelola permission sistem</p>
         </div>
         @can('create permissions')
-            <a href="{{ route('permissions.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
+            <a href="{{ route('permissions.create') }}" class="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
                 <i class="fas fa-plus mr-2"></i>
                 Tambah Permission
             </a>
@@ -45,7 +45,7 @@
         
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+                <thead class="bg-gray-100">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Nama Permission
@@ -99,19 +99,19 @@
                                 {{ $permission->created_at->format('M d, Y') }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                <a href="{{ route('permissions.show', $permission) }}" class="text-blue-600 hover:text-blue-900 transition-colors">
-                                    <i class="fas fa-eye mr-1"></i>View
+                                <a href="{{ route('permissions.show', $permission) }}" class="text-gray-600 hover:text-gray-900 transition-colors">
+                                    <i class="fas fa-eye mr-1"></i>
                                 </a>
                                 
                                 @can('edit permissions')
-                                    <a href="{{ route('permissions.edit', $permission) }}" class="text-green-600 hover:text-green-900 transition-colors">
-                                        <i class="fas fa-edit mr-1"></i>Edit
+                                    <a href="{{ route('permissions.edit', $permission) }}" class="text-gray-600 hover:text-gray-900 transition-colors">
+                                        <i class="fas fa-edit mr-1"></i>
                                     </a>
                                 @endcan
                                 
                                 @can('delete permissions')
-                                    <button onclick="deletePermission({{ $permission->id }}, '{{ $permission->name }}')" class="text-red-600 hover:text-red-900 transition-colors">
-                                        <i class="fas fa-trash mr-1"></i>Delete
+                                    <button onclick="deletePermission({{ $permission->id }}, '{{ $permission->name }}')" class="text-gray-600 hover:text-gray-900 transition-colors">
+                                        <i class="fas fa-trash mr-1"></i>
                                     </button>
                                 @endcan
                             </td>

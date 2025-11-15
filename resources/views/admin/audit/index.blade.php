@@ -18,7 +18,7 @@
     @endif
 
     {{-- Header --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
             <div>
                 <h1 class="text-2xl font-bold text-gray-900">Audit Log</h1>
@@ -26,16 +26,16 @@
             </div>
             
             <div class="flex flex-wrap gap-3">
-                <button onclick="toggleFilters()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors text-sm font-medium">
+                <button onclick="toggleFilters()" class="bg-gray-100 hover:bg-gray-200 text-gray-900 px-4 py-2 rounded-lg transition-colors text-sm font-medium">
                     <i class="fas fa-filter mr-2"></i>Filter
                 </button>
                 
-                <button onclick="exportData()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors text-sm font-medium">
+                <button onclick="exportData()" class="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg transition-colors text-sm font-medium">
                     <i class="fas fa-file-excel mr-2"></i>Export Excel
                 </button>
                 
                 @if(request()->hasAny(['date_from', 'date_to', 'action', 'user_id', 'search']))
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-900">
                     <i class="fas fa-filter mr-1"></i>Filter Aktif
                 </span>
                 @endif
@@ -43,7 +43,7 @@
         </div>
         
         {{-- Filter Form --}}
-        <div id="filterForm" class="hidden mt-6 p-4 bg-gray-50 rounded-lg">
+        <div id="filterForm" class="hidden mt-6 p-4 bg-gray-100 rounded-lg">
             <form method="GET" action="{{ route('audit.index') }}" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {{-- Date Range --}}
                 <div>
@@ -94,10 +94,10 @@
                 
                 {{-- Buttons --}}
                 <div class="lg:col-span-2 flex gap-2">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
+                    <button type="submit" class="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium">
                         Apply Filter
                     </button>
-                    <a href="{{ route('audit.index') }}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium">
+                    <a href="{{ route('audit.index') }}" class="bg-gray-100 hover:bg-gray-200 text-gray-900 px-4 py-2 rounded-lg text-sm font-medium">
                         Reset
                     </a>
                 </div>
@@ -106,10 +106,10 @@
     </div>
 
     {{-- Audit Log Table --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+                <thead class="bg-gray-100">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waktu</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
@@ -189,7 +189,7 @@
 
     {{-- Pagination --}}
     @if($logs->hasPages())
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
         {{ $logs->links() }}
     </div>
     @endif

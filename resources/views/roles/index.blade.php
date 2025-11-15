@@ -11,7 +11,7 @@
             <p class="text-gray-600 mt-1">Kelola role dan permission sistem</p>
         </div>
         @can('create roles')
-            <a href="{{ route('roles.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
+            <a href="{{ route('roles.create') }}" class="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
                 <i class="fas fa-plus mr-2"></i>
                 Tambah Role
             </a>
@@ -45,7 +45,7 @@
         
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+                <thead class="bg-gray-100">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Nama Role
@@ -98,20 +98,20 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                <a href="{{ route('roles.show', $role) }}" class="text-blue-600 hover:text-blue-900 transition-colors">
-                                    <i class="fas fa-eye mr-1"></i>View
+                                <a href="{{ route('roles.show', $role) }}" class="text-gray-600 hover:text-gray-900 transition-colors">
+                                    <i class="fas fa-eye mr-1"></i>
                                 </a>
                                 
                                 @can('edit roles')
-                                    <a href="{{ route('roles.edit', $role) }}" class="text-green-600 hover:text-green-900 transition-colors">
-                                        <i class="fas fa-edit mr-1"></i>Edit
+                                    <a href="{{ route('roles.edit', $role) }}" class="text-gray-600 hover:text-gray-900 transition-colors">
+                                        <i class="fas fa-edit mr-1"></i>
                                     </a>
                                 @endcan
                                 
                                 @can('delete roles')
                                     @if($role->name !== 'super_admin')
-                                        <button onclick="deleteRole({{ $role->id }}, '{{ $role->name }}')" class="text-red-600 hover:text-red-900 transition-colors">
-                                            <i class="fas fa-trash mr-1"></i>Delete
+                                        <button onclick="deleteRole({{ $role->id }}, '{{ $role->name }}')" class="text-gray-600 hover:text-gray-900 transition-colors">
+                                            <i class="fas fa-trash mr-1"></i>
                                         </button>
                                     @endif
                                 @endcan

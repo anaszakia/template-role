@@ -5,7 +5,7 @@
 @section('content')
 <div class="space-y-6">
     {{-- Header --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-2xl font-bold text-gray-900">Detail Audit Log</h1>
@@ -14,8 +14,8 @@
                 </p>
             </div>
             
-            <a href="{{ route('admin.audit.index') }}" 
-               class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors text-sm font-medium">
+            <a href="{{ route('audit.index') }}" 
+               class="bg-gray-100 hover:bg-gray-200 text-gray-900 px-4 py-2 rounded-lg transition-colors text-sm font-medium">
                 <i class="fas fa-arrow-left mr-2"></i>Kembali
             </a>
         </div>
@@ -23,7 +23,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {{-- Basic Information --}}
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h2 class="text-lg font-semibold text-gray-900 mb-4">Informasi Dasar</h2>
             
             <div class="space-y-4">
@@ -80,7 +80,7 @@
         </div>
 
         {{-- User Information --}}
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h2 class="text-lg font-semibold text-gray-900 mb-4">Informasi User</h2>
             
             <div class="space-y-4">
@@ -130,7 +130,7 @@
     {{-- User Agent & Request Data --}}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {{-- User Agent --}}
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h2 class="text-lg font-semibold text-gray-900 mb-4">User Agent</h2>
             <div class="text-sm text-gray-700 break-all p-3 bg-gray-50 rounded-lg">
                 {{ $auditLog->user_agent ?? 'N/A' }}
@@ -138,7 +138,7 @@
         </div>
 
         {{-- Request Data --}}
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h2 class="text-lg font-semibold text-gray-900 mb-4">Request Data</h2>
             @if($auditLog->request_data && count($auditLog->request_data) > 0)
             <div class="space-y-2">

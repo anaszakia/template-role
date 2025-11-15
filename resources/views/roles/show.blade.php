@@ -26,7 +26,7 @@
         
         <div class="flex space-x-2">
             @can('edit roles')
-                <a href="{{ route('roles.edit', $role) }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
+                <a href="{{ route('roles.edit', $role) }}" class="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
                     <i class="fas fa-edit mr-2"></i>
                     Edit Role
                 </a>
@@ -34,7 +34,7 @@
             
             @can('delete roles')
                 @if($role->name !== 'super_admin')
-                    <button onclick="deleteRole({{ $role->id }}, '{{ $role->name }}')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
+                    <button onclick="deleteRole({{ $role->id }}, '{{ $role->name }}')" class="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
                         <i class="fas fa-trash mr-2"></i>
                         Delete
                     </button>

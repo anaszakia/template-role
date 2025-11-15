@@ -15,13 +15,13 @@
         </div>
         <div class="flex gap-2">
             @can('edit permissions')
-                <a href="{{ route('permissions.edit', $permission) }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
+                <a href="{{ route('permissions.edit', $permission) }}" class="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
                     <i class="fas fa-edit mr-2"></i>
                     Edit Permission
                 </a>
             @endcan
             @can('delete permissions')
-                <button onclick="deletePermission({{ $permission->id }}, '{{ $permission->name }}')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
+                <button onclick="deletePermission({{ $permission->id }}, '{{ $permission->name }}')" class="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center">
                     <i class="fas fa-trash mr-2"></i>
                     Delete
                 </button>
@@ -147,7 +147,7 @@
             @if($usersWithPermission->count() > 0)
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-gray-100">
                             <tr>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">User</th>
                                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>

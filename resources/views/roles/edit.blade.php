@@ -128,10 +128,10 @@
 
             <!-- Actions -->
             <div class="flex items-center justify-between pt-6 border-t border-gray-200">
-                <a href="{{ route('roles.index') }}" class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors duration-200">
+                <a href="{{ route('roles.index') }}" class="px-4 py-2 text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-lg font-medium transition-colors duration-200">
                     Cancel
                 </a>
-                <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200">
+                <button type="submit" class="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-lg font-medium transition-colors duration-200">
                     Update Role
                 </button>
             </div>
