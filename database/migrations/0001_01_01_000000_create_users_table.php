@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
+            $table->string('otp', 5); // 5 digit OTP code
+            $table->timestamp('expires_at'); // Expiry time (30 seconds from creation)
         });
 
         Schema::create('sessions', function (Blueprint $table) {
